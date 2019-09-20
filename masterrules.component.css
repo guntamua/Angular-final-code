@@ -1,0 +1,32 @@
+  tbody {
+    height:300px;
+    overflow-y:scroll;
+    font-size: 12px;
+    background-color: whitesmoke;
+    -webkit-box-align: center;
+   }
+
+ thead{
+    display: relative;
+    text-align: center;
+    font-size: 12px;
+    width: 100%;
+    background-color:#264E36 ;
+    color: whitesmoke;
+    
+    }
+
+.jumbotron{
+    background-color: #DFE3EE;
+    }
+
+.title{
+    text-align: center;
+    height: 50px;
+    font-size: 30px;
+    font-family: 'Playfair Display', serif;
+    padding-top: 0px;
+    background-color:#264E36 ;
+    /*#577284*/
+    color: whitesmoke;
+}

@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<!-- Displays the tables list of selected schema -->
+<div class= "jumbotron container title" style="margin-top:80px">
+    <link href="https://fonts.googleapis.com/css?family=Playfair+Display&display=swap" rel="stylesheet">
+    <div>Master Rules</div>
+</div>
+
+<div class=" jumbotron container">
+        <form (ngSubmit)="onSubmit()">
+            <form (ngSubmit)="onclickSearch()">
+                <div class="form-group">
+                  <label class="col-sm-3 control-label text-right">Description</label>
+                  <div class="col-sm-9">
+                    <div class="row">
+                        <div class="col-sm-6 form-group">
+                            <input type="text" class="form-control form-control-lg">
+                        </div>
+                    </div><!-- /.form-group > .row -->
+                  </div><!-- /.col-sm-9 -->
+                </div> <!-- /.form-group-->
+            </form>
+                <div class="form-group">
+                <label class="col-sm-3 control-label text-right">Action Type</label>
+                    <div class="col-sm-9">
+                      <div class="row">
+                        <div class="col-sm-6 form-group">
+                          <select type="text" class="form-control form-control-lg"> 
+                                  <!--[(ngModel)] ="user.table_name" name="table_name">-->
+                              <option>---Select---</option>
+                              <option>SELECT</option>
+                              <option>UPDATE</option>
+                              <option>DELETE</option>
+                          </select>
+                        </div><!--nested col-sm-6-->
+                      </div><!-- /.form-group > .row -->
+                    </div><!-- /.col-sm-9 -->
+                </div> <!-- /.form-group-->
+
+                <div class="form-group">
+                <label class="col-sm-3 control-label text-right">Target Table</label>
+                    <div class="col-sm-9">
+                      <div class="row">
+                        <div class="col-sm-6 form-group">
+                          <select type="text" class="form-control form-control-lg">
+                              <!-- [(ngModel)] ="user.table_name" name="table_name">-->
+                              <option>---Select---</option>
+                          </select>
+                        </div>
+                      </div><!-- /.form-group > .row -->
+                    </div><!-- /.col-sm-9 -->
+                </div> <!-- /.form-group-->
+
+                <div class="form-group">
+                <label class="col-sm-3 control-label text-right">Is Target Temp.</label>
+                    <div class="col-sm-9">
+                      <div class="row">
+                        <div class="col-sm-6 form-group">
+                          <select type="text" class="form-control form-control-lg">
+                            <!-- [(ngModel)] ="user.table_name" name="table_name">-->
+                              <option> Y</option>
+                              <option> N </option>
+                          </select>
+                        </div>
+                      </div><!-- /.form-group > .row -->
+                    </div><!-- /.col-sm-9 -->
+                </div> <!-- /.form-group-->
+
+                <div class="form-group">
+                  <label class="col-sm-3 control-label text-right"></label>
+                    <div class="col-sm-9">
+                      <div class="row">
+                          <div class="col-sm-2 form-group">
+                              <button type="submit" class="btn btn-success btn-custom">Add</button>
+                          </div>
+                          <div class="col-sm-2 form-group">
+                              <button type="submit" class="btn btn-primary btn-custom">Clear</button>
+                          </div>
+                      </div><!-- /.form-group > .row -->
+                    </div><!-- /.col-sm-9 -->
+                </div> <!-- /.form-group-->
+                        
+                <div [hidden]="!submitted" class="col-sm-offset-3 col-sm-9" >
+                    <h6>You submitted successfully!</h6>
+                    <!--<button class="btn btn-success" (click)="newTable()">Add</button>-->
+                </div>
+
+    </form> <!-- /.form submit()-->
+  
+</div> <!-- /.jumbotron container -->
+
+<!--////////////////////////////////////////tabel list//////////////////////////////////////////////////-->
+
+<div class="jumbotron container">
+<div class=" container">
+<div class="form-group">
+     <div class="input-group">
+        <div class="col-lg">
+        <div class="row">
+
+            <div class="col-sm-4 form-group">
+                <input type="text" class="form-control" name="searchText" placeholder="Type to search..." [(ngModel)]="searchText"/>
+            </div>
+            <!--nested col-sm-3-->
+
+            <div class="col-sm-6 form-group ">
+                <button class="btn btn-primary btn-md btn-group text-right" (click)="onClickMe()">Refresh</button>
+            </div>
+            <!--nested col-sm-3-->
+
+            </div><!-- /.form-group > .row -->
+        </div><!-- /.col-sm-9 -->
+    </div>
+</div><!-- /.form-group -->
+
+    <table class=" container table table-bordered table-hover" style="background-color: white">
+        <thead class="thead">
+            <tr >
+                <th scope="col" >MASTER_SEQ_NBR</th> 
+                <th scope="col" >DESCRIPTION</th>
+                <th scope="col" >STATEMENT_TYP</th>
+                <th scope="col" >TARGET_TABLE</th>
+                <th scope="col" >TARGET_TEMP_IND</th>
+                <th scope="col" >MODIFY</th>
+            </tr>
+        </thead>
+        <tbody style="background-color: white">
+            <tr *ngFor="let master of allMasterRules | 
+                        paginate: { itemsPerPage: count, currentPage: p } | 
+                        filter : {target_table: searchText};"> 
+                <td > {{master.master_seq_nbr}}</td>
+                <td > {{master.description}}</td>
+                <td > {{master.statement_typ}}</td>
+                <td > {{master.target_table}}</td>
+                <td > {{master.target_temp_ind}}</td>
+                <td >  <!--<button type="submit" class="btn " (click)="RowSelected(u)"  href="/masterrulesedit"> Edit </button> -->
+                    <a class="btn btn-primary btn-xs" href="/masterconfig"> EDIT <span class="sr-only">(current)</span></a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="text-right">
+        <pagination-controls (pageChange)="p = $event"></pagination-controls>
+    </div>
+</div> 
