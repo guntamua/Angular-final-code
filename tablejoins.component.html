@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+
+<div class= "jumbotron container title" style="margin-top:80px">
+    <link href="https://fonts.googleapis.com/css?family=Playfair+Display&display=swap" rel="stylesheet">
+    <div>JOINS</div>
+</div>
+<div class="jumbotron container">
+<form (ngSubmit)="onSubmit()">
+<!--line 1-->
+    <form (ngSubmit)="onclickSearch()">
+      <div class="form-group">
+          <label class="col-sm-2 control-label text-right">Table (T1)</label>
+          <div class="col-sm-4 form-group">
+              <select class=" form-control form-control-lg"
+                    [value]="owner"
+                    (input)='owner = $event.target.value'
+                    name="table1_seq_nbr"
+                    [(ngModel)]="alljoins.table1_seq_nbr">
+                      <!--[value]='owner'-->
+                  <option>---select Table (T1)---</option>
+                  <option *ngFor="let column of allOwnerTableList" >
+                        {{column.table_name}}
+                  </option>
+              </select>
+          </div><!--nested col-sm-6 -->
+          <div class="col-sm-2">
+            <div class="row">
+                <div class="col-sm-4 form-group">
+                    <button class=" btn btn-primary">Display Column List</button>
+                </div><!--nested col-sm-3-->
+            </div> <!--/.form-group > .row -->
+          </div> <!--/.col-sm-9 -->
+      </div> <!-- /.form-group-->
+    </form>
+        <div class="form-group">
+        <!--<label class="col-sm-3 control-label text-right">Column Name </label>-->
+            <!--<div class="col-sm-6">-->
+            <div class="row">
+                <div class="col-sm-9 form-group">
+                    <select class="form-control form-control-lg"
+                            name="col1_seq_nbr" [(ngModel)]="alljoins.col1_seq_nbr">
+                        <option> --- Select --- </option>
+                        <option *ngFor="let column of columnforownertable">
+                           <span class='name'>{{column.column_seq_nbr}}</span>|<span class ='city'>{{column.column_name}}</span>
+                        </option>
+                    </select>
+                </div><!--nested col-sm-6-->
+            </div><!-- /.form-group > .row -->
+            <!--</div> /.col-sm-9 -->
+        </div> <!-- /.form-group-->
+
+    <!--//line 2-->
+    <form (ngSubmit)="onclickSearch2()">
+      <div class="form-group">
+           <label class="col-sm-2 control-label text-right">Table (T2)</label>
+          <div class="col-sm-4 form-group">
+             <select class=" form-control form-control-lg"
+                        [value]="owner2"
+                        (input)='owner2 = $event.target.value'
+                        name="table2_seq_nbr"
+                        [(ngModel)]="alljoins.table2_seq_nbr" >
+                <option>---select Table (T2)---</option>
+                <option *ngFor="let column of allOwnerTableList">
+                    {{column.table_name}}
+                </option>
+             </select>
+          </div><!--nested col-sm-6 -->
+          <div class="col-sm-2">
+            <div class="row">
+                <div class="col-sm-4 form-group">
+                    <button class=" btn btn-primary">Display Column List</button>
+                </div><!--nested col-sm-3-->
+            </div> <!--/.form-group > .row -->
+          </div> <!--/.col-sm-9 -->
+      </div> <!-- /.form-group-->
+    </form>
+    <div class="form-group">
+    <!--<label class="col-sm-6 control-label text-right">Column Name </label>-->
+        <!--<div class="col-sm-6">-->
+        <div class="row">
+          <div class="col-sm-9 form-group">
+              <select select type="text" class="multi-column form-control form-control-lg"
+                      name="cols2_seq_nbr" [(ngModel)]="alljoins.cols2_seq_nbr">
+                  <option> --- Select --- </option>
+                  <option *ngFor="let column of columnforownertable2">
+                    <span class='name'>{{column.column_seq_nbr}}</span>|<span class ='city'>{{column.column_name}}</span>
+                  </option>
+                </select>
+          </div><!--nested col-sm-6-->
+        </div><!-- /.form-group > .row -->
+       <!-- </div> /.col-sm-9 -->
+    </div> <!-- /.form-group-->
+
+    <div class="form-group">
+    <label class="col-sm-2 control-label text-right">Join Description</label>
+        <!--<div class="col-sm-6">-->
+        <div class="row">
+            <div class="col-sm-5 form-group">
+                <input type="text" [(ngModel)]="alljoins.join_descr" placeholder=" Join Description"
+                        name="join_descr" class="form-control form-control-lg" id="join_descr">
+                 <!--<textarea class="form-control" rows="3"
+                            [(ngModel)]="alljoins.join_descr"
+                            placeholder=" Join Description"
+                            name="join_descr" class="form-control form-control-lg" id="join_descr">
+                 </textarea>-->
+            </div>
+        </div><!-- /.form-group > .row -->
+        <!--</div> /.col-sm-9 -->
+    </div> <!-- /.form-group-->
+
+    <div class="form-group">
+    <label class="col-sm-2 control-label text-right">Join Type</label>
+        <!--<div class="col-sm-9">-->
+        <div class="row">
+            <div class="col-sm-5 form-group">
+                <select class="form-control form-control-lg"
+                        required [(ngModel)]="alljoins.join_typ"
+                        name="join_typ"  id="join_typ" >
+                    <option>I</option>
+                    <option>L</option>
+                    <option>R</option>
+                </select>
+            </div>
+         </div><!-- /.form-group > .row -->
+        <!--</div> /.col-sm-9 -->
+    </div> <!-- /.form-group-->
+
+        <div class="form-group">
+          <div class="col-sm-offset-2 col-sm-9">
+              <button type="submit" class="btn btn-success btn-custom">Submit</button>
+          </div><!-- /.col-sm-offset-3 col-sm-9 -->
+        </div><!-- /.form-group -->
+
+        <div [hidden]="!submitted" class="col-sm-offset-3 col-sm-9" >
+          <h6>You submitted successfully!</h6>
+          <!--<button class="btn btn-success" (click)="newTable()">Add</button>-->
+        </div>
+
+    </form> <!-- /.form submit()-->
+</div> <!-- /.jumbotron -->
+
+<!--////////////////////////////////////////suggested tables//////////////////////////////////////////////////-->
+
+<div class= "jumbotron container">
+<form (ngSubmit)="onClkAdd()">
+<div class="form-group">
+    <label class="col-sm-2 control-label text-right"> Suggested Joins </label>
+    <div class="row">
+        <div class="col-sm-8 form-group">
+          <table class=" table table-bordered table-hover" style="background-color: white">
+                <thead class="thead">
+                    <tr >
+                        <th scope="col" >JOIN SEQ NBR</th>
+                        <th scope="col" >DESCRIPTION</th>
+                        <th scope="col" >JOIN TYPE</th>
+                    </tr>
+                </thead>
+                <tbody *ngFor="let join of allSuggestedJoins"
+                        [class.selected]="join === selectedJoin"
+                        (click)="onSelectjoin(alljoins)"
+                        
+                        (click) ="highlightRow(join)"
+                        [ngClass]="{'highlight': join == selectedJoins}">
+                    <tr>
+                        <td > {{join.join_seq_nbr}}</td>
+                        <td > {{join.join_descr}}</td>
+                        <td > {{join.join_typ}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-sm-2">
+            <div class="row">
+                <div class="col-sm-4 form-group">
+                    <button class=" btn btn-primary">Add join conditions</button>
+                </div><!--nested col-sm-3-->
+            </div> <!--/.form-group > .row -->
+        </div> <!--/.col-sm-9 -->
+    </div>
+</div>
+</form>
+
+<!--<div>-->
+<div class="form-group">
+<label class="col-sm-2 control-label text-right"> Existing join conditons  </label>
+    <div class="row">
+        <div class="col-sm-8 form-group">
+          <table class=" table table-bordered table-hover" style="background-color: white">
+                <thead class="thead">
+                    <tr>
+                        <th scope="col" >JOIN_CONDITION</th>
+                        <th scope="col" >DESCRIPTION</th>
+                        <th scope="col" >JOIN TYPE</th>
+                        <!--<th scope="col" >MODIFY</th>-->
+                    </tr>
+                </thead>
+                <tbody >
+                    <tr *ngFor="let join of allSuggestedJoins"
+                        [(ngModel)]="selectedJoin" name="join_condition"
+                                                
+                        (click) ="highlightRow(join)"
+                        [ngClass]="{'highlight': join == selectedJoins}">
+                         <!--[(ngModel)]="selectedJoin.join_condition" name="join_condition" -->
+                        
+                        <td > {{join.join_condition}}</td>
+                        <td > {{join.join_descr}}</td>
+                        <td > {{join.join_typ}}</td>
+                        <!--<td> <span class="btn btn-md btn-danger" (click)='deletejoin()'>Delete</span> </td> -->
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-sm-2">
+            <div class="row">
+                <div class="col-sm-4 form-group">
+                    <button class=" btn btn-primary" (click)="onClkDelete()">Delete existing join conditions</button>
+                </div>
+                <!--nested col-sm-3-->
+            </div> 
+            <!--/.form-group > .row -->
+        </div> 
+        <!--/.col-sm-9 -->
+    </div>
+</div> <!--/.jumbotron-->
