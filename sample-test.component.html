@@ -1,0 +1,41 @@
+<p>
+  sample-test works!
+</p>
+<div class="jumbotron container" style="margin-top:30px">
+<div class = "row">
+<div class="control-section">
+  <div class="col-lg-8 control-section">
+    <!--<ejs-querybuilder id="querybuilder" #querybuilder cssClass="row" [dataSource]="dataSource" [columns]="filter" width="100%"
+      [rule]="importRules" (ruleChange)="updateRule($event)" (created)="change()">
+    </ejs-querybuilder>-->
+    <ejs-querybuilder>
+
+    </ejs-querybuilder>
+  </div>
+  <div class="col-lg-4 property-section template-property">
+    <div class="property-panel-header">Properties</div>
+    <div class="property-panel-content">
+      <table id="property" title="Properties" style="width:100%;">
+        <tr>
+          <td style="width: 50%; margin:10px">
+            <div class="row">
+              <button id="radio1" label="JSON Rule" name="rule" value="json" checked="true" (change)="change()"></button>
+            </div>
+          </td>
+          <td style="width: 50%;">
+            <div class="row">
+              <button id="radio2" label="SQL Rule" name="rule" value="sql" (change)="change()"></button>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td style="width: 100%;" colspan="2">
+            <textarea id="ruleContent"></textarea>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>  
+</div>
+</div>
